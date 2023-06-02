@@ -1,6 +1,7 @@
 import { Suspense, lazy, ElementType } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 // layouts
+import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
@@ -21,10 +22,6 @@ const Loadable = (Component: ElementType) => (props: any) => {
 
 export default function Router() {
   return useRoutes([
-    {
-      path: '/',
-      element: <Navigate to="/dashboard/one" replace />,
-    },
     {
       path: '/dashboard',
       element: <DashboardLayout />,
@@ -52,6 +49,13 @@ export default function Router() {
         { path: '*', element: <Navigate to="/404" replace /> },
       ],
     },
+    {
+      path: '/',
+      element: <MainLayout />,
+      children: [
+        { element: <HomePage />, index: true },
+      ]
+    },
     { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
@@ -64,3 +68,7 @@ const PageFour = Loadable(lazy(() => import('../pages/PageFour')));
 const PageFive = Loadable(lazy(() => import('../pages/PageFive')));
 const PageSix = Loadable(lazy(() => import('../pages/PageSix')));
 const NotFound = Loadable(lazy(() => import('../pages/Page404')));
+
+// MainPage
+const HomePage = Loadable(lazy(() => import('../pages/HomePage')));
+
