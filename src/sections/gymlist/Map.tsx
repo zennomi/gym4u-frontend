@@ -4,6 +4,7 @@ import LoadingScreen from "../../components/LoadingScreen";
 import { GOOGLE_MAP_API_KEY } from "../../config";
 import { Location } from "../../types";
 import { defaultLocation, defaultRadius } from "../../constants";
+import { Card } from "@mui/material";
 
 const cirlceOptions = {
     strokeColor: '#FF0000',
@@ -51,30 +52,33 @@ export default function Map({ setCenter, setRadius }: { setCenter: (c: Location)
     useEffect(() => {
         getLocation()
     }, [])
-    return loadError ? <>Load error</> :
-        isLoaded ?
-            <GoogleMap
-                mapContainerStyle={{ width: "100%", height: "600px" }}
-                center={myLocation}
-                zoom={16}
-            >
-                <Circle
-                    center={myLocation}
-                    options={cirlceOptions}
-                    onLoad={(circleInstance) => setCircle(circleInstance)}
-                    onCenterChanged={() => {
-                        if (circle) {
-                            const result = circle.getCenter()!
-                            setCenter({ lat: result.lat(), lng: result.lng() })
-                        }
-                    }}
-                    onRadiusChanged={() => {
-                        if (circle) {
-                            setRadius(circle.getRadius())
-                        }
-                    }}
-                />
-            </GoogleMap>
-            :
-            <LoadingScreen />
+    return (
+        <Card>
+            {loadError ? <>Load error</> :
+                isLoaded ?
+                    <GoogleMap
+                        mapContainerStyle={{ width: "100%", height: "600px" }}
+                        center={myLocation}
+                        zoom={16}
+                    >
+                        <Circle
+                            center={myLocation}
+                            options={cirlceOptions}
+                            onLoad={(circleInstance) => setCircle(circleInstance)}
+                            onCenterChanged={() => {
+                                if (circle) {
+                                    const result = circle.getCenter()!
+                                    setCenter({ lat: result.lat(), lng: result.lng() })
+                                }
+                            }}
+                            onRadiusChanged={() => {
+                                if (circle) {
+                                    setRadius(circle.getRadius())
+                                }
+                            }}
+                        />
+                    </GoogleMap>
+                    :
+                    <LoadingScreen />}
+        </Card>)
 }

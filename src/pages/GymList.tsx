@@ -2,15 +2,15 @@ import { Box, Button, Card, CardContent, CardHeader, Container, Grid, InputAdorn
 import { SubmitHandler, useForm } from "react-hook-form";
 import Page from "../components/Page";
 import Map from "../sections/gymlist/Map";
-import { GetGymListRequestOptions, Location } from "../types";
-import { defaultGetGymListOptions, defaultLocation, defaultRadius, facilitiesOptions } from "../constants";
+import { GetGymListRequestOptions } from "../types";
+import { defaultGetGymListOptions, facilitiesOptions } from "../constants";
 import Iconify from "../components/Iconify";
 import { FormProvider, RHFMultiCheckbox } from "../components/hook-form";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { useGyms } from "../hooks/useGym";
 import Image from "../components/Image";
 import { randomNumberRange } from "../_mock/funcs";
-import { fCurrency } from "../utils/formatNumber";
+import { fCurrency, fShortenNumber } from "../utils/formatNumber";
 
 export default function GymList() {
 
@@ -22,6 +22,8 @@ export default function GymList() {
     });
 
     const { register, handleSubmit, watch, formState: { errors }, setValue } = methods
+
+    const values = watch()
 
     const onSubmit: SubmitHandler<GetGymListRequestOptions> = data => setOptions(data);
 
@@ -58,6 +60,7 @@ export default function GymList() {
                                         />
                                     </CardContent>
                                 </Card>
+                                <Typography>距離: <Typography component="span" color="primary.main" sx={{ fontWeight: 700 }}>{fShortenNumber(values.radius || 0)}m</Typography></Typography>
                                 <Map
                                     setCenter={(c) => { setValue('lat', c.lat); setValue('lng', c.lng) }}
                                     setRadius={(r) => setValue('radius', r)}
@@ -75,11 +78,11 @@ export default function GymList() {
                                             (
                                                 <Card>
                                                     <CardContent>
-                                                        <Box display="flex" width="100%">
-                                                            <Box width="30%" flexGrow="1">
-                                                                <Image src={gym.image} ratio="4/3" sx={{ borderRadius: 2 }} />
-                                                            </Box>
-                                                            <Box px={2}>
+                                                        <Grid container>
+                                                            <Grid xs={4}>
+                                                                <Image src={gym.image} ratio="4/3" sx={{ borderRadius: 2, width: "100%" }} />
+                                                            </Grid>
+                                                            <Grid px={2} xs={8}>
                                                                 <Typography variant="h4" color="primary.main">{gym.name}</Typography>
                                                                 <Box display="flex" justifyContent="space-between">
                                                                     <Rating value={randomNumberRange(0, 5)} />
@@ -88,11 +91,14 @@ export default function GymList() {
                                                                 <Typography>
                                                                     {gym.description}
                                                                 </Typography>
-                                                                <Box display="flex" justifyContent="space-between">
-                                                                    <Typography><Iconify icon="carbon:location-filled" /></Typography>
+                                                                <Box display="flex" justifyContent="space-between" justifyItems="end">
+                                                                    <Typography sx={{ mr: 1 }}><Iconify icon="carbon:location-filled" /> {gym.address}</Typography>
+                                                                    <Button sx={{ whiteSpace: "nowrap", mt: 'auto', display: 'flex', minWidth: 'unset' }} variant="contained" endIcon={<Iconify icon="eva:eye-fill" />}>
+                                                                        詳細
+                                                                    </Button>
                                                                 </Box>
-                                                            </Box>
-                                                        </Box>
+                                                            </Grid>
+                                                        </Grid>
                                                     </CardContent>
                                                 </Card>
                                             )
