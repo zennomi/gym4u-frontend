@@ -10,6 +10,8 @@ import { PATH_DASHBOARD } from './routes/paths';
 
 export const HOST_API = process.env.REACT_APP_HOST_API_KEY || '';
 
+export const GOOGLE_MAP_API_KEY = "AIzaSyC8F4lK0x68Em-oDEAqckFImvW9k-Fz8Ow"
+
 export const FIREBASE_API = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,

@@ -6,6 +6,7 @@ import DashboardLayout from '../layouts/dashboard';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
+import { PATH_PAGE } from './paths';
 
 // ----------------------------------------------------------------------
 
@@ -54,6 +55,7 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
+        { path: PATH_PAGE.gymList, element: <GymList />, }
       ]
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -71,4 +73,5 @@ const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 
 // MainPage
 const HomePage = Loadable(lazy(() => import('../pages/HomePage')));
+const GymList = Loadable(lazy(() => import('../pages/GymList')));
 
