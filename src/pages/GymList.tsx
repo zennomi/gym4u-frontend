@@ -72,8 +72,8 @@ export default function GymList() {
                                     <CardHeader title="オプション" />
                                     <CardContent>
                                         <RHFMultiCheckbox
-                                            name="facilities"
-                                            options={facilitiesOptions.map(f => ({ label: f, value: f }))}
+                                            name="facilityTags"
+                                            options={facilitiesOptions}
                                         />
                                     </CardContent>
                                 </Card>
