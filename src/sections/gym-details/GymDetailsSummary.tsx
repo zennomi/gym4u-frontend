@@ -31,7 +31,7 @@ export default function GymDetailsSummary({
         _id,
         name,
         price,
-        image,
+        images,
         facilityTags,
         address,
         phone,

@@ -75,8 +75,8 @@ export default function MainFooter() {
               direction={{ xs: 'column', md: 'row' }}
               justifyContent="space-between"
             >
-              {LINKS.map((list) => (
-                <Stack key={list.headline} spacing={2}>
+              {LINKS.map((list, index) => (
+                <Stack key={index} spacing={2}>
                   <Typography component="p" variant="overline">
                     {list.headline}
                   </Typography>

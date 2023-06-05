@@ -1,6 +1,7 @@
 export type Gym = {
     _id: string
-    image: string
+    images: string[]
+    video: string
     facilityTags: string[]
     name: string
     address: string

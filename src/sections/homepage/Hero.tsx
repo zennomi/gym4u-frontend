@@ -1,6 +1,7 @@
 import { Box, OutlinedInput, InputAdornment, Container, Button, Grid, Typography } from "@mui/material";
 import Iconify from "../../components/Iconify";
 import HeroIllustration from "../../assets/illustration_hero";
+import PlaceAutocomplete from "./PlaceAutocomplete";
 
 export default function Hero() {
     return (
@@ -11,11 +12,12 @@ export default function Hero() {
             },
         })}>
             <Box mx={"120px"} display={"flex"} justifyContent={"space-between"}>
-                <OutlinedInput
+                {/* <OutlinedInput
                     id="standard-adornment-amount"
                     startAdornment={<InputAdornment position="start"><Iconify icon="eva:search-fill" /></InputAdornment>}
                     fullWidth
-                />
+                /> */}
+                <PlaceAutocomplete />
                 <Button
                     variant="contained"
                     sx={{ ml: 5, px: 5, whiteSpace: 'nowrap' }}

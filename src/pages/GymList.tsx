@@ -19,16 +19,18 @@ import { PATH_PAGE } from "../routes/paths";
 export default function GymList() {
 
 
-    const [options, setOptions] = useState<GetGymListRequestOptions | null>(null)
+    const [options, setOptions] = useState<Required<GetGymListRequestOptions> | null>(null)
     const [searchParams, setSearchParams] = useSearchParams();
     const [lat, lng] = [searchParams.get('lat'), searchParams.get('lng')]
     const location: Location = {
         lat: lat ? parseFloat(lat) : defaultLocation.lat,
         lng: lng ? parseFloat(lng) : defaultLocation.lng,
     }
+    const [myLocation, setMylocation] = useState<Location | null>(null);
+
     const { data, isLoading, error } = useGyms(options)
 
-    const methods = useForm<GetGymListRequestOptions>({
+    const methods = useForm<Required<GetGymListRequestOptions>>({
         defaultValues: { ...defaultGetGymListOptions, ...location }
     });
 
@@ -36,7 +38,20 @@ export default function GymList() {
 
     const values = watch()
 
-    const onSubmit: SubmitHandler<GetGymListRequestOptions> = data => setOptions(data);
+    const onSubmit: SubmitHandler<Required<GetGymListRequestOptions>> = data => setOptions(data);
+
+    const getLocation = () => {
+        if (!navigator.geolocation) {
+            console.log('Geolocation is not supported by your browser');
+        } else {
+            console.log('Locating...');
+            navigator.geolocation.getCurrentPosition((position) => {
+                setMylocation({ lat: position.coords.latitude, lng: position.coords.longitude })
+            }, () => {
+                console.error('Unable to retrieve your location');
+            });
+        }
+    }
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -77,11 +92,15 @@ export default function GymList() {
                                         />
                                     </CardContent>
                                 </Card>
-                                <Typography>距離: <Typography component="span" color="primary.main" sx={{ fontWeight: 700 }}>{fShortenNumber(values.distance || 0)}m</Typography></Typography>
+                                <Stack direction="row" spacing={1} alignItems="center">
+                                    <Typography>距離: <Typography component="span" color="primary.main" sx={{ fontWeight: 700 }}>{fShortenNumber(values.distance || 0)}m</Typography></Typography>
+                                    <Button variant="outlined" onClick={getLocation}>あなたの場所</Button>
+                                </Stack>
                                 <Map
                                     setCenter={(c) => { setValue('lat', c.lat); setValue('lng', c.lng) }}
                                     setRadius={(r) => setValue('distance', r)}
-                                    location={location}
+                                    location={{ lat: values.lat, lng: values.lng }}
+                                    myLocation={myLocation}
                                 />
                             </Stack>
                         </FormProvider>
@@ -99,7 +118,7 @@ export default function GymList() {
                                                         <CardContent>
                                                             <Grid container>
                                                                 <Grid xs={4}>
-                                                                    <Image src={gym.image} ratio="4/3" sx={{ borderRadius: 2, width: "100%" }} />
+                                                                    <Image src={gym.images[0]} ratio="4/3" sx={{ borderRadius: 2, width: "100%" }} />
                                                                 </Grid>
                                                                 <Grid px={2} xs={8}>
                                                                     <Typography variant="h4" color="primary.main">{gym.name}</Typography>

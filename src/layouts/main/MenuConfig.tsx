@@ -1,7 +1,6 @@
 // routes
-import { PATH_AUTH, PATH_DOCS, PATH_PAGE } from '../../routes/paths';
+import { PATH_PAGE } from '../../routes/paths';
 // components
-import { PATH_AFTER_LOGIN } from '../../config';
 // components
 import Iconify from '../../components/Iconify';
 
@@ -25,7 +24,7 @@ const menuConfig = [
   },
   {
     title: 'ジム詳細情報',
-    path: PATH_PAGE.searchGym,
+    path: PATH_PAGE.gymDetails("/"),
     icon: <Iconify icon={'eva:file-fill'} {...ICON_SIZE} />,
   },
   {

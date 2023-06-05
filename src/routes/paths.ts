@@ -33,7 +33,6 @@ export const PATH_PAGE = {
   page500: '/500',
   components: '/components',
   gymList: '/gym-list',
-  searchGym: '/search-gym',
   booking: '/booking',
   gymDetails: (id: string) => `/gym/${id}`
 };

@@ -37,7 +37,7 @@ export default function GymDetailsCarousel({ gym }: Props) {
 
     const slider2 = useRef<Slider | null>(null);
 
-    const imagesLightbox = [gym.image];
+    const imagesLightbox = gym.images;
 
     const handleOpenLightbox = (url: string) => {
         const selectedImage = imagesLightbox.findIndex((index) => index === url);
@@ -91,9 +91,9 @@ export default function GymDetailsCarousel({ gym }: Props) {
             <Box sx={{ p: 1 }}>
                 <Box sx={{ zIndex: 0, borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
                     <Slider {...settings1} asNavFor={nav2} ref={slider1}>
-                        {imagesLightbox.map((img) => (
+                        {imagesLightbox.map((img, index) => (
                             <Image
-                                key={img}
+                                key={index}
                                 alt="large image"
                                 src={img}
                                 ratio="1/1"

@@ -1,5 +1,5 @@
 import { useLoadScript, GoogleMap, Circle } from "@react-google-maps/api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import LoadingScreen from "../../components/LoadingScreen";
 import { GOOGLE_MAP_API_KEY } from "../../config";
 import { Location } from "../../types";
@@ -20,7 +20,7 @@ const cirlceOptions = {
     zIndex: 1,
 }
 
-export default function Map({ setCenter, setRadius, location }: { setCenter: (c: Location) => void, setRadius: (r: number) => void, location: Location }) {
+export default function Map({ setCenter, setRadius, location, myLocation }: { setCenter: (c: Location) => void, setRadius: (r: number) => void, location: Location, myLocation: Location | null}) {
 
     const { isLoaded, loadError } = useLoadScript({
         id: 'google-map-script',
@@ -30,39 +30,21 @@ export default function Map({ setCenter, setRadius, location }: { setCenter: (c:
         // ...otherOptions
     })
     const [circle, setCircle] = useState<google.maps.Circle | null>(null)
-    const [myLocation, setMylocation] = useState<Location>(location);
-
-    const getLocation = () => {
-        if (!navigator.geolocation) {
-            console.log('Geolocation is not supported by your browser');
-        } else {
-            console.log('Locating...');
-            navigator.geolocation.getCurrentPosition((position) => {
-                console.log(position);
-                setMylocation({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                })
-            }, () => {
-                console.log('Unable to retrieve your location');
-            });
-        }
-    }
-
-    useEffect(() => {
-        getLocation()
-    }, [])
+    const center = useMemo<Location>(() => {
+        if (myLocation) return myLocation
+        return location
+    }, [myLocation])
     return (
         <Card>
             {loadError ? <>Load error</> :
                 isLoaded ?
                     <GoogleMap
                         mapContainerStyle={{ width: "100%", height: "600px" }}
-                        center={myLocation}
-                        zoom={10}
+                        center={center}
+                        zoom={8}
                     >
                         <Circle
-                            center={myLocation}
+                            center={center}
                             options={cirlceOptions}
                             onLoad={(circleInstance) => setCircle(circleInstance)}
                             onCenterChanged={() => {
