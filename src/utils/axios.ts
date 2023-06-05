@@ -1,7 +1,8 @@
 import originalAxios from "axios";
+import { HOST_API } from "../config";
 
 const axios = originalAxios.create({
-    baseURL: 'http://localhost:5000/v1'
+    baseURL: `${HOST_API}/v1`
 })
 
 export default axios
