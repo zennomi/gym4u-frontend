@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, CardHeader, Container, Grid, InputAdornment, OutlinedInput, Rating, Stack, Typography } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Container, Grid, InputAdornment, OutlinedInput, Pagination, Rating, Stack, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Page from "../components/Page";
 import Map from "../sections/gymlist/Map";
@@ -6,7 +6,7 @@ import { GetGymListRequestOptions } from "../types";
 import { defaultGetGymListOptions, facilitiesOptions } from "../constants";
 import Iconify from "../components/Iconify";
 import { FormProvider, RHFMultiCheckbox } from "../components/hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGyms } from "../hooks/useGym";
 import Image from "../components/Image";
 import { randomNumberRange } from "../_mock/funcs";
@@ -26,6 +26,12 @@ export default function GymList() {
     const values = watch()
 
     const onSubmit: SubmitHandler<GetGymListRequestOptions> = data => setOptions(data);
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+        setOptions(values)
+        return () => setOptions(null)
+    }, [values.page])
 
     return (
         <Page title="Gym List">
@@ -69,7 +75,7 @@ export default function GymList() {
                         </FormProvider>
                     </Grid>
                     <Grid item xs={8}>
-                        <Box px={2}>
+                        <Box px={2} mb={2}>
                             <Stack spacing={2}>
                                 {
                                     isLoading ? <div>Loading...</div> :
@@ -103,6 +109,18 @@ export default function GymList() {
                                                 </Card>
                                             )
                                             )
+                                }
+                                {
+                                    data &&
+                                    <Pagination
+                                        defaultValue={values.page}
+                                        count={data.totalPages}
+                                        onChange={(event, value) => {
+                                            setValue("page", value)
+                                        }}
+                                        color="primary"
+                                        showFirstButton
+                                        showLastButton />
                                 }
                             </Stack>
                         </Box>
