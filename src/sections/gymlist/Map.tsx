@@ -59,7 +59,7 @@ export default function Map({ setCenter, setRadius, location }: { setCenter: (c:
                     <GoogleMap
                         mapContainerStyle={{ width: "100%", height: "600px" }}
                         center={myLocation}
-                        zoom={16}
+                        zoom={10}
                     >
                         <Circle
                             center={myLocation}

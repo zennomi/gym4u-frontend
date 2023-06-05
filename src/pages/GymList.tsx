@@ -92,42 +92,44 @@ export default function GymList() {
                                 {
                                     isLoading ? <div>Loading...</div> :
                                         error ? <div>Error</div> :
-                                            data?.results.map(gym =>
-                                            (
-                                                <Card>
-                                                    <CardContent>
-                                                        <Grid container>
-                                                            <Grid xs={4}>
-                                                                <Image src={gym.image} ratio="4/3" sx={{ borderRadius: 2, width: "100%" }} />
+                                            data && data.results.length > 0 ?
+                                                data.results.map(gym =>
+                                                (
+                                                    <Card>
+                                                        <CardContent>
+                                                            <Grid container>
+                                                                <Grid xs={4}>
+                                                                    <Image src={gym.image} ratio="4/3" sx={{ borderRadius: 2, width: "100%" }} />
+                                                                </Grid>
+                                                                <Grid px={2} xs={8}>
+                                                                    <Typography variant="h4" color="primary.main">{gym.name}</Typography>
+                                                                    <Box display="flex" justifyContent="space-between">
+                                                                        <Rating value={randomNumberRange(0, 5)} />
+                                                                        <Typography variant="h6">{fCurrency(gym.price)}/1ヶ月</Typography>
+                                                                    </Box>
+                                                                    <Typography>
+                                                                        {gym.description}
+                                                                    </Typography>
+                                                                    <Box display="flex" justifyContent="space-between" justifyItems="end">
+                                                                        <Typography sx={{ mr: 1 }}><Iconify icon="carbon:location-filled" /> {gym.address}</Typography>
+                                                                        <Button
+                                                                            component={RouterLink}
+                                                                            to={PATH_PAGE.gymDetails(gym._id)}
+                                                                            sx={{ whiteSpace: "nowrap", mt: 'auto', display: 'flex', minWidth: 'unset' }}
+                                                                            variant="contained" endIcon={<Iconify icon="eva:eye-fill" />}>
+                                                                            詳細
+                                                                        </Button>
+                                                                    </Box>
+                                                                </Grid>
                                                             </Grid>
-                                                            <Grid px={2} xs={8}>
-                                                                <Typography variant="h4" color="primary.main">{gym.name}</Typography>
-                                                                <Box display="flex" justifyContent="space-between">
-                                                                    <Rating value={randomNumberRange(0, 5)} />
-                                                                    <Typography variant="h6">{fCurrency(gym.price)}/1ヶ月</Typography>
-                                                                </Box>
-                                                                <Typography>
-                                                                    {gym.description}
-                                                                </Typography>
-                                                                <Box display="flex" justifyContent="space-between" justifyItems="end">
-                                                                    <Typography sx={{ mr: 1 }}><Iconify icon="carbon:location-filled" /> {gym.address}</Typography>
-                                                                    <Button
-                                                                        component={RouterLink}
-                                                                        to={PATH_PAGE.gymDetails(gym._id)}
-                                                                        sx={{ whiteSpace: "nowrap", mt: 'auto', display: 'flex', minWidth: 'unset' }}
-                                                                        variant="contained" endIcon={<Iconify icon="eva:eye-fill" />}>
-                                                                        詳細
-                                                                    </Button>
-                                                                </Box>
-                                                            </Grid>
-                                                        </Grid>
-                                                    </CardContent>
-                                                </Card>
-                                            )
-                                            )
+                                                        </CardContent>
+                                                    </Card>
+                                                )
+                                                )
+                                                : <div>No results</div>
                                 }
                                 {
-                                    data &&
+                                    data && data.results.length > 0 &&
                                     <Pagination
                                         defaultValue={values.page}
                                         count={data.totalPages}

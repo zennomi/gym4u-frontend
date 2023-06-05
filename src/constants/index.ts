@@ -2,7 +2,7 @@ import { GetGymListRequestOptions, Location } from "../types";
 
 export const defaultLocation: Location = { lat: 21.004886675099637, lng: 105.84497349384758 }
 
-export const defaultRadius: number = 100
+export const defaultRadius: number = 10000
 
 export const facilitiesOptions = [
     {value: "pool", label: "プール"},
