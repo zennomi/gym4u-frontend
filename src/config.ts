@@ -68,11 +68,11 @@ export const ICON = {
 // ----------------------------------------------------------------------
 
 export const defaultSettings: SettingsValueProps = {
-  themeMode: 'light',
+  themeMode: 'dark',
   themeDirection: 'ltr',
   themeContrast: 'default',
   themeLayout: 'horizontal',
-  themeColorPresets: 'default',
+  themeColorPresets: 'cyan',
   themeStretch: false,
 };
 
