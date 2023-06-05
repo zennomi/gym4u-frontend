@@ -35,6 +35,7 @@ export const PATH_PAGE = {
   gymList: '/gym-list',
   searchGym: '/search-gym',
   booking: '/booking',
+  gymDetails: (id: string) => `/gym/${id}`
 };
 
 export const PATH_DASHBOARD = {

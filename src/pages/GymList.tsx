@@ -1,8 +1,10 @@
 import { Box, Button, Card, CardContent, CardHeader, Container, Grid, InputAdornment, OutlinedInput, Pagination, Rating, Stack, Typography } from "@mui/material";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { Link as RouterLink, useSearchParams } from "react-router-dom";
+
 import Page from "../components/Page";
 import Map from "../sections/gymlist/Map";
-import { GetGymListRequestOptions } from "../types";
+import { GetGymListRequestOptions, Location } from "../types";
 import { defaultGetGymListOptions, facilitiesOptions } from "../constants";
 import Iconify from "../components/Iconify";
 import { FormProvider, RHFMultiCheckbox } from "../components/hook-form";
@@ -11,14 +13,23 @@ import { useGyms } from "../hooks/useGym";
 import Image from "../components/Image";
 import { randomNumberRange } from "../_mock/funcs";
 import { fCurrency, fShortenNumber } from "../utils/formatNumber";
+import { defaultLocation } from "../constants";
+import { PATH_PAGE } from "../routes/paths";
 
 export default function GymList() {
 
+
     const [options, setOptions] = useState<GetGymListRequestOptions | null>(null)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [lat, lng] = [searchParams.get('lat'), searchParams.get('lng')]
+    const location: Location = {
+        lat: lat ? parseFloat(lat) : defaultLocation.lat,
+        lng: lng ? parseFloat(lng) : defaultLocation.lng,
+    }
     const { data, isLoading, error } = useGyms(options)
 
     const methods = useForm<GetGymListRequestOptions>({
-        defaultValues: defaultGetGymListOptions
+        defaultValues: { ...defaultGetGymListOptions, ...location }
     });
 
     const { register, handleSubmit, watch, formState: { errors }, setValue } = methods
@@ -66,10 +77,11 @@ export default function GymList() {
                                         />
                                     </CardContent>
                                 </Card>
-                                <Typography>距離: <Typography component="span" color="primary.main" sx={{ fontWeight: 700 }}>{fShortenNumber(values.radius || 0)}m</Typography></Typography>
+                                <Typography>距離: <Typography component="span" color="primary.main" sx={{ fontWeight: 700 }}>{fShortenNumber(values.distance || 0)}m</Typography></Typography>
                                 <Map
                                     setCenter={(c) => { setValue('lat', c.lat); setValue('lng', c.lng) }}
-                                    setRadius={(r) => setValue('radius', r)}
+                                    setRadius={(r) => setValue('distance', r)}
+                                    location={location}
                                 />
                             </Stack>
                         </FormProvider>
@@ -99,7 +111,11 @@ export default function GymList() {
                                                                 </Typography>
                                                                 <Box display="flex" justifyContent="space-between" justifyItems="end">
                                                                     <Typography sx={{ mr: 1 }}><Iconify icon="carbon:location-filled" /> {gym.address}</Typography>
-                                                                    <Button sx={{ whiteSpace: "nowrap", mt: 'auto', display: 'flex', minWidth: 'unset' }} variant="contained" endIcon={<Iconify icon="eva:eye-fill" />}>
+                                                                    <Button
+                                                                        component={RouterLink}
+                                                                        to={PATH_PAGE.gymDetails(gym._id)}
+                                                                        sx={{ whiteSpace: "nowrap", mt: 'auto', display: 'flex', minWidth: 'unset' }}
+                                                                        variant="contained" endIcon={<Iconify icon="eva:eye-fill" />}>
                                                                         詳細
                                                                     </Button>
                                                                 </Box>

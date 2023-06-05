@@ -22,8 +22,8 @@ export default function MainLayout() {
 
       <Box sx={{ flexGrow: 1 }} />
 
-      {!isHome ? (
-        <MainFooter />
+      <MainFooter />
+      {/* {!isHome ? (
       ) : (
         <Box
           sx={{
@@ -43,7 +43,7 @@ export default function MainLayout() {
             </Typography>
           </Container>
         </Box>
-      )}
+      )} */}
     </Stack>
   );
 }

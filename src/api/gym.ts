@@ -10,3 +10,11 @@ export const getGyms = async (options: GetGymListRequestOptions): Promise<GetLis
     })
     return data
 }
+
+export const getGym = async (id: string): Promise<Gym> => {
+    const { data } = await axios({
+        method: "GET",
+        url: `/gym/${id}`,
+    })
+    return data
+}

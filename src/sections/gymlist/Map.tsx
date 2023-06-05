@@ -20,7 +20,7 @@ const cirlceOptions = {
     zIndex: 1,
 }
 
-export default function Map({ setCenter, setRadius }: { setCenter: (c: Location) => void, setRadius: (r: number) => void }) {
+export default function Map({ setCenter, setRadius, location }: { setCenter: (c: Location) => void, setRadius: (r: number) => void, location: Location }) {
 
     const { isLoaded, loadError } = useLoadScript({
         id: 'google-map-script',
@@ -30,7 +30,7 @@ export default function Map({ setCenter, setRadius }: { setCenter: (c: Location)
         // ...otherOptions
     })
     const [circle, setCircle] = useState<google.maps.Circle | null>(null)
-    const [myLocation, setMylocation] = useState<Location>(defaultLocation);
+    const [myLocation, setMylocation] = useState<Location>(location);
 
     const getLocation = () => {
         if (!navigator.geolocation) {

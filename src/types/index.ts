@@ -8,9 +8,9 @@ export type GetGymListRequestOptions = {
     limit?: number
     lat?: number
     lng?: number
-    radius?: number
+    distance?: number
     name?: string
-    facilities?: string[]
+    facilityTags?: string[]
 }
 
 export type GetListResponse<T> = {

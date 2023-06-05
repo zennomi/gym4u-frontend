@@ -55,7 +55,8 @@ export default function Router() {
       element: <MainLayout />,
       children: [
         { element: <HomePage />, index: true },
-        { path: PATH_PAGE.gymList, element: <GymList />, }
+        { path: PATH_PAGE.gymList, element: <GymList />, },
+        { path: PATH_PAGE.gymDetails(":id"), element: <GymDetails />, },
       ]
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -74,4 +75,5 @@ const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 // MainPage
 const HomePage = Loadable(lazy(() => import('../pages/HomePage')));
 const GymList = Loadable(lazy(() => import('../pages/GymList')));
+const GymDetails = Loadable(lazy(() => import('../pages/GymDetails')));
 
