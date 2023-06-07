@@ -23,10 +23,10 @@ export default function GymDetails() {
                             : data &&
                             <Card>
                                 <Grid container>
-                                    <Grid item xs={12} md={6} lg={7}>
+                                    <Grid item xs={12} md={6}>
                                         <GymDetailsCarousel gym={data} />
                                     </Grid>
-                                    <Grid item xs={12} md={6} lg={5}>
+                                    <Grid item xs={12} md={6}>
                                         <GymDetailsSummary
                                             gym={data}
                                         />

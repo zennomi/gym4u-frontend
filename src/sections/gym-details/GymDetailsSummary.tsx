@@ -1,11 +1,12 @@
 import { Typography, Stack, Rating, Divider, Button, styled, Box, useTheme } from "@mui/material";
-import { useNavigate } from "react-router";
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+
 import { randomNumberRange } from "../../_mock/funcs";
 import Iconify from "../../components/Iconify";
 import Label from "../../components/Label";
 import { Gym } from "../../types";
 import { fShortenNumber, fCurrency } from "../../utils/formatNumber";
-
+import GymVideo from "./GymVideo";
 
 const RootStyle = styled('div')(({ theme }) => ({
     padding: theme.spacing(3),
@@ -25,17 +26,14 @@ export default function GymDetailsSummary({
 }: Props) {
     const theme = useTheme();
 
-    const navigate = useNavigate();
+    const handle = useFullScreenHandle();
 
     const {
-        _id,
         name,
         price,
-        images,
         facilityTags,
         address,
         phone,
-        description,
     } = gym;
 
     return (
@@ -94,7 +92,7 @@ export default function GymDetailsSummary({
 
             <Divider sx={{ borderStyle: 'dashed' }} />
 
-            <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
+            <Stack direction="row" spacing={2} sx={{ mt: 5, mb: 2 }}>
                 <Button
                     fullWidth
                     size="large"
@@ -102,6 +100,7 @@ export default function GymDetailsSummary({
                     variant="contained"
                     startIcon={<Iconify icon={'eva:video-fill'} />}
                     sx={{ whiteSpace: 'nowrap' }}
+                    onClick={handle.enter}
                 >
                     紹介ビデオ
                 </Button>
@@ -116,10 +115,15 @@ export default function GymDetailsSummary({
                     ブッキング
                 </Button>
             </Stack>
+            <FullScreen handle={handle}>
+                <Box>
+                    <GymVideo url={gym.video || "https://www.youtube.com/watch?v=PCZ2JHaPvZ4&ab_channel=ANLLELASAGRA"} playing={true} muted={true} />
+                </Box>
+            </FullScreen>
             {/* 
                 <Stack alignItems="center" sx={{ mt: 3 }}>
                     <SocialsButton initialColor />
                 </Stack> */}
-        </RootStyle>
+        </RootStyle >
     );
 }
