@@ -11,7 +11,7 @@ import GymVideo from "./GymVideo";
 const RootStyle = styled('div')(({ theme }) => ({
     padding: theme.spacing(3),
     [theme.breakpoints.up(1368)]: {
-        padding: theme.spacing(5, 8),
+        padding: theme.spacing(2, 2),
     },
 }));
 
