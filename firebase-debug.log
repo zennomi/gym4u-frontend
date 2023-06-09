@@ -1,0 +1,38 @@
+[debug] [2023-06-09T03:53:49.017Z] ----------------------------------------------------------------------
+[debug] [2023-06-09T03:53:49.018Z] Command:       /home/zennomi/.nvm/versions/node/v16.18.1/bin/node /mnt/c/Users/zennomi/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy
+[debug] [2023-06-09T03:53:49.019Z] CLI Version:   11.16.0
+[debug] [2023-06-09T03:53:49.019Z] Platform:      linux
+[debug] [2023-06-09T03:53:49.019Z] Node Version:  v16.18.1
+[debug] [2023-06-09T03:53:49.020Z] Time:          Fri Jun 09 2023 10:53:49 GMT+0700 (Indochina Time)
+[debug] [2023-06-09T03:53:49.020Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-06-09T03:53:49.051Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-06-09T03:53:49.132Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-06-09T03:53:49.133Z] > authorizing via signed-in user (ngdatuananh@gmail.com)
+[debug] [2023-06-09T03:53:49.133Z] [iam] checking project gym4u-itss for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-06-09T03:53:49.134Z] > refreshing access token with scopes: []
+[debug] [2023-06-09T03:53:49.134Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-06-09T03:53:49.134Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-06-09T03:53:49.450Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-06-09T03:53:49.451Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-06-09T03:53:49.458Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gym4u-itss:testIamPermissions [none]
+[debug] [2023-06-09T03:53:49.458Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gym4u-itss:testIamPermissions x-goog-quota-user=projects/gym4u-itss
+[debug] [2023-06-09T03:53:49.459Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gym4u-itss:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-06-09T03:53:49.675Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-06-09T03:53:49.675Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2023-06-09T03:53:50.613Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gym4u-itss:testIamPermissions 200
+[debug] [2023-06-09T03:53:50.613Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gym4u-itss:testIamPermissions {}
+[debug] [2023-06-09T03:53:50.614Z] [iam] error while checking permissions, command may fail: FirebaseError: Authorization failed. This account is missing the following required permissions on project gym4u-itss:
+
+  firebase.projects.get
+  firebasehosting.sites.update
+[debug] [2023-06-09T03:53:50.615Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/gym4u-itss [none]
+[debug] [2023-06-09T03:53:51.061Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/gym4u-itss 403
+[debug] [2023-06-09T03:53:51.062Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/gym4u-itss {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2023-06-09T03:53:51.063Z] HTTP Error: 403, The caller does not have permission
+[debug] [2023-06-09T03:53:51.064Z] FirebaseError: HTTP Error: 403, The caller does not have permission
+    at responseToError (/mnt/c/Users/zennomi/AppData/Roaming/npm/node_modules/firebase-tools/lib/responseToError.js:49:12)
+    at RetryOperation._fn (/mnt/c/Users/zennomi/AppData/Roaming/npm/node_modules/firebase-tools/lib/apiv2.js:288:77)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+[error] 
+[error] Error: Failed to get Firebase project gym4u-itss. Please make sure the project exists and your account has permission to access it.

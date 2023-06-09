@@ -24,3 +24,4 @@ export type GetListResponse<T> = {
 export * from "./gym"
 export * from "./feedback"
 export * from "./user"
+export * from "./auth"

@@ -19,7 +19,7 @@ import { HelmetProvider } from 'react-helmet-async';
 // contexts
 import { SettingsProvider } from './contexts/SettingsContext';
 import { CollapseDrawerProvider } from './contexts/CollapseDrawerContext';
-
+import { AuthProvider } from './contexts/JWTContext';
 //
 import App from './App';
 
@@ -28,13 +28,15 @@ import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <HelmetProvider>
-    <SettingsProvider>
-      <CollapseDrawerProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CollapseDrawerProvider>
-    </SettingsProvider>
-  </HelmetProvider>
+  <AuthProvider>
+    <HelmetProvider>
+      <SettingsProvider>
+        <CollapseDrawerProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </CollapseDrawerProvider>
+      </SettingsProvider>
+    </HelmetProvider>
+  </AuthProvider>
 );

@@ -1,5 +1,7 @@
 import { Suspense, lazy, ElementType } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
+// hooks
+import useAuth from '../hooks/useAuth';
 // layouts
 import MainLayout from '../layouts/main';
 import DashboardLayout from '../layouts/dashboard';
@@ -7,15 +9,19 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // components
 import LoadingScreen from '../components/LoadingScreen';
 import { PATH_PAGE } from './paths';
+// guards
+import GuestGuard from '../guards/GuestGuard';
+import AuthGuard from '../guards/AuthGuard';
+
 
 // ----------------------------------------------------------------------
 
 const Loadable = (Component: ElementType) => (props: any) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { pathname } = useLocation();
+  const { isAuthenticated } = useAuth();
 
   return (
-    <Suspense fallback={<LoadingScreen isDashboard={pathname.includes('/dashboard')} />}>
+    <Suspense fallback={<LoadingScreen isDashboard={isAuthenticated} />}>
       <Component {...props} />
     </Suspense>
   );
@@ -23,6 +29,32 @@ const Loadable = (Component: ElementType) => (props: any) => {
 
 export default function Router() {
   return useRoutes([
+    {
+      path: 'auth',
+      children: [
+        {
+          path: 'login',
+          element: (
+            <GuestGuard>
+              <Login />
+            </GuestGuard>
+          ),
+        },
+        {
+          path: 'register',
+          element: (
+            <GuestGuard>
+              <Register />
+            </GuestGuard>
+          ),
+        },
+        { path: 'login-unprotected', element: <Login /> },
+        { path: 'register-unprotected', element: <Register /> },
+        { path: 'reset-password', element: <ResetPassword /> },
+        { path: 'verify', element: <VerifyCode /> },
+      ],
+    },
+
     {
       path: '/dashboard',
       element: <DashboardLayout />,
@@ -62,6 +94,11 @@ export default function Router() {
     { path: '*', element: <Navigate to="/404" replace /> },
   ]);
 }
+// AUTHENTICATION
+const Login = Loadable(lazy(() => import('../pages/auth/Login')));
+const Register = Loadable(lazy(() => import('../pages/auth/Register')));
+const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword')));
+const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 
 // Dashboard
 const PageOne = Loadable(lazy(() => import('../pages/PageOne')));
