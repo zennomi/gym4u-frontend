@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, List, ListItem, Pagination, Rating, Typography } from "@mui/material";
-import { Gym } from "../../types";
+import { Feedback, Gym } from "../../types";
 import { useState } from "react";
 import Iconify from "../../components/Iconify";
 import { fShortenNumber } from "../../utils/formatNumber";
@@ -7,20 +7,23 @@ import { fDate } from "../../utils/formatTime";
 
 type Props = {
     gym: Gym;
+    feedbacks: Feedback[]
 };
 
-export default function GymReviewList({ gym }: Props) {
-    const reviews = [{ id: '69696' }];
+export default function GymReviewList({ gym, feedbacks }: Props) {
+
+    const [page, setPage] = useState(1)
+    const limit = 5
 
     return (
         <Box sx={{ pt: 3, px: 2, pb: 5 }}>
             <List disablePadding>
-                {reviews.map((review) => (
-                    <ReviewItem key={review.id} />
+                {feedbacks.slice((page - 1) * limit, page * limit).map((feedback) => (
+                    <ReviewItem key={feedback._id} feedback={feedback} />
                 ))}
             </List>
             <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Pagination count={10} color="primary" />
+                <Pagination count={Math.floor(feedbacks.length / limit)} onChange={(event, value) => setPage(value)} color="primary" />
             </Box>
         </Box>
     );
@@ -28,18 +31,9 @@ export default function GymReviewList({ gym }: Props) {
 
 // ----------------------------------------------------------------------
 
-function ReviewItem() {
+function ReviewItem({ feedback }: { feedback: Feedback }) {
     const [isHelpful, setHelpfuls] = useState(false);
-
-    const [name, rating, comment, helpful, postedAt, avatarUrl, isPurchased] = [
-        "Zennomi",
-        4.7,
-        "Nhuw cc",
-        69,
-        new Date(),
-        "https://api-prod-minimal-v5.vercel.app/assets/images/avatar/avatar_5.jpg",
-        true,
-    ];
+    const { user } = feedback
 
     const handleClickHelpful = () => {
         setHelpfuls((prev) => !prev);
@@ -67,7 +61,7 @@ function ReviewItem() {
                     }}
                 >
                     <Avatar
-                        src={avatarUrl}
+                        src={user.avatar}
                         sx={{
                             mr: { xs: 2, sm: 0 },
                             mb: { sm: 2 },
@@ -77,18 +71,18 @@ function ReviewItem() {
                     />
                     <div>
                         <Typography variant="subtitle2" noWrap>
-                            {name}
+                            {user.name}
                         </Typography>
-                        <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
+                        {/* <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
                             {fDate(postedAt)}
-                        </Typography>
+                        </Typography> */}
                     </div>
                 </Box>
 
                 <div>
-                    <Rating size="small" value={rating} precision={0.1} readOnly />
+                    <Rating size="small" value={feedback.rating} precision={0.01} readOnly />
 
-                    {isPurchased && (
+                    {/* {isPurchased && (
                         <Typography
                             variant="caption"
                             sx={{
@@ -101,11 +95,11 @@ function ReviewItem() {
                             <Iconify icon={'ic:round-verified'} width={16} height={16} />
                             &nbsp;Verified purchase
                         </Typography>
-                    )}
+                    )} */}
 
-                    <Typography variant="body2">{comment}</Typography>
+                    <Typography variant="body2">{feedback.content}</Typography>
 
-                    <Box
+                    {/* <Box
                         sx={{
                             mt: 1,
                             display: 'flex',
@@ -128,7 +122,7 @@ function ReviewItem() {
                             {isHelpful ? 'Helpful' : 'Thank'}({fShortenNumber(!isHelpful ? helpful : helpful + 1)}
                             )
                         </Button>
-                    </Box>
+                    </Box> */}
                 </div>
             </ListItem>
         </>

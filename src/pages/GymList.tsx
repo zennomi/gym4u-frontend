@@ -123,7 +123,7 @@ export default function GymList() {
                                                                 <Grid px={2} xs={8}>
                                                                     <Typography variant="h4" color="primary.main">{gym.name}</Typography>
                                                                     <Box display="flex" justifyContent="space-between">
-                                                                        <Rating value={randomNumberRange(0, 5)} />
+                                                                        <Rating value={gym.averageRating} precision={0.01} readOnly />
                                                                         <Typography variant="h6">{fCurrency(gym.price)}/1ヶ月</Typography>
                                                                     </Box>
                                                                     <Typography>

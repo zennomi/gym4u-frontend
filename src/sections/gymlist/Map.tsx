@@ -41,7 +41,7 @@ export default function Map({ setCenter, setRadius, location, myLocation }: { se
                     <GoogleMap
                         mapContainerStyle={{ width: "100%", height: "600px" }}
                         center={center}
-                        zoom={8}
+                        zoom={11}
                     >
                         <Circle
                             center={center}

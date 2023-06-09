@@ -4,6 +4,7 @@ import { Gym } from "../../types";
 import GymReviewOverview from "./GymReviewOverview";
 import GymReviewForm from "./GymReviewForm";
 import GymReviewList from "./GymReviewList";
+import { useFeedbackGym } from "../../hooks/useGym";
 
 type Props = {
     gym: Gym;
@@ -11,6 +12,7 @@ type Props = {
 
 export default function GymReview({ gym }: Props) {
     const [reviewBox, setReviewBox] = useState(false);
+    const { data, isLoading, error } = useFeedbackGym(gym.id)
 
     const handleOpenReviewBox = () => {
         setReviewBox((prev) => !prev);
@@ -20,9 +22,12 @@ export default function GymReview({ gym }: Props) {
         setReviewBox(false);
     };
 
+    if (error) return <div>error</div>
+
     return (
         <>
-            <GymReviewOverview gym={gym} onOpen={handleOpenReviewBox} />
+
+            <GymReviewOverview gym={gym} onOpen={handleOpenReviewBox} feedbacks={data ? data.results : []} />
 
             <Divider />
 
@@ -30,8 +35,10 @@ export default function GymReview({ gym }: Props) {
                 <GymReviewForm onClose={handleCloseReviewBox} id="move_add_review" />
                 <Divider />
             </Collapse>
-
-            <GymReviewList gym={gym} />
+            {
+                isLoading ? <>Loading</> : data &&
+                    <GymReviewList gym={gym} feedbacks={data.results} />
+            }
         </>
     );
 }
