@@ -11,15 +11,16 @@ import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
-import { FormProvider, RHFTextField } from '../../../components/hook-form';
+import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
 type FormValuesProps = {
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  name: string;
+  phone: string;
+  sex: string;
   afterSubmit?: string;
 };
 
@@ -31,15 +32,17 @@ export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
 
   const RegisterSchema = Yup.object().shape({
-    firstName: Yup.string().required('First name required'),
-    lastName: Yup.string().required('Last name required'),
+    name: Yup.string().required('First name required'),
+    phone: Yup.string().required('Last name required'),
+    sex: Yup.string().required('Last name required'),
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
   });
 
   const defaultValues = {
-    firstName: '',
-    lastName: '',
+    name: '',
+    phone: '',
+    sex: '男性',
     email: '',
     password: '',
   };
@@ -58,7 +61,7 @@ export default function RegisterForm() {
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
-      await register(data.email, data.password, data.firstName, data.lastName);
+      await register(data.email, data.password, data.name, data.phone, data.sex);
     } catch (error) {
       console.error(error);
       reset();
@@ -74,15 +77,22 @@ export default function RegisterForm() {
         {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
 
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <RHFTextField name="firstName" label="First name" />
-          <RHFTextField name="lastName" label="Last name" />
+          <RHFTextField name="name" label="名前" />
+          <RHFSelect name="sex" label="性別">
+            {
+              ['男性', '女性', '他'].map(s => (
+                <option key={s}>{s}</option>
+              ))
+            }
+          </RHFSelect>
         </Stack>
 
-        <RHFTextField name="email" label="Email address" />
+        <RHFTextField name="phone" label="電話番号" />
+        <RHFTextField name="email" label="メール" />
 
         <RHFTextField
           name="password"
-          label="Password"
+          label="パスワード"
           type={showPassword ? 'text' : 'password'}
           InputProps={{
             endAdornment: (
@@ -102,7 +112,7 @@ export default function RegisterForm() {
           variant="contained"
           loading={isSubmitting}
         >
-          Register
+          登録
         </LoadingButton>
       </Stack>
     </FormProvider>

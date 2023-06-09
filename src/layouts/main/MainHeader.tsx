@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link as RouterLink } from 'react-router-dom';
 // @mui
 import { styled, useTheme } from '@mui/material/styles';
 import { Box, Button, AppBar, Toolbar, Container, Link } from '@mui/material';
@@ -11,12 +11,12 @@ import cssStyles from '../../utils/cssStyles';
 import { HEADER } from '../../config';
 // components
 import Logo from '../../components/Logo';
-import Label from '../../components/Label';
 //
 import MenuDesktop from './MenuDesktop';
 import MenuMobile from './MenuMobile';
 import navConfig from './MenuConfig';
 import { PATH_AUTH } from '../../routes/paths';
+import useAuth from '../../hooks/useAuth';
 
 // ----------------------------------------------------------------------
 
@@ -52,6 +52,8 @@ export default function MainHeader() {
   const theme = useTheme();
 
   const { pathname } = useLocation();
+
+  const { isAuthenticated, logout } = useAuth()
 
   const isDesktop = useResponsive('up', 'md');
 
@@ -92,14 +94,25 @@ export default function MainHeader() {
 
           {isDesktop && <MenuDesktop isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
 
-          <Button
-            LinkComponent={Link}
-            variant="contained"
-            rel="noopener"
-            href={PATH_AUTH.register}
-          >
-            ログイン｜サインアップ
-          </Button>
+          {
+            isAuthenticated ?
+              <Button
+                variant='outlined'
+                onClick={logout}
+              >
+                ログアウト
+              </Button> :
+              <Link
+                component={RouterLink}
+                to={PATH_AUTH.register}
+              >
+                <Button
+                  variant="contained"
+                >
+                  サインアップ
+                </Button>
+              </Link>
+          }
 
           {!isDesktop && <MenuMobile isOffset={isOffset} isHome={isHome} navConfig={navConfig} />}
         </Container>

@@ -80,7 +80,7 @@ function ReviewItem({ feedback }: { feedback: Feedback }) {
                 </Box>
 
                 <div>
-                    <Rating size="small" value={feedback.rating} precision={0.01} readOnly />
+                    <Rating size="small" value={feedback.rating} precision={0.1} readOnly />
 
                     {/* {isPurchased && (
                         <Typography

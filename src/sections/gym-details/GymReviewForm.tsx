@@ -5,6 +5,9 @@ import { styled, Typography, Stack, Rating, FormHelperText, Button } from "@mui/
 import { useForm, Controller } from "react-hook-form";
 import { RHFTextField, FormProvider } from "../../components/hook-form";
 import { LoadingButton } from '@mui/lab';
+import { Gym } from '../../types';
+import { postFeedback } from '../../api/feedback';
+import { useFeedbackGym, useGym } from '../../hooks/useGym';
 
 
 
@@ -18,30 +21,28 @@ const RootStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 type FormValuesProps = {
-    rating: number | string | null;
-    review: string;
-    name: string;
-    email: string;
+    rating: number;
+    content: string;
 };
 
 type Props = {
+    gym: Gym;
     onClose: VoidFunction;
     id?: string;
 };
 
-export default function GymReviewForm({ onClose, id, ...other }: Props) {
+export default function GymReviewForm({ gym, onClose, id, ...other }: Props) {
+    const { mutate } = useFeedbackGym(gym.id)
+    const { mutate: mutateGym } = useGym(gym.id)
+
     const ReviewSchema = Yup.object().shape({
-        rating: Yup.mixed().required('Rating is required'),
-        review: Yup.string().required('Review is required'),
-        name: Yup.string().required('Name is required'),
-        email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+        rating: Yup.number().required('Rating is required'),
+        content: Yup.string().required('Review is required'),
     });
 
     const defaultValues = {
-        rating: null,
-        review: '',
-        name: '',
-        email: '',
+        rating: 5,
+        content: '',
     };
 
     const methods = useForm<FormValuesProps>({
@@ -59,6 +60,9 @@ export default function GymReviewForm({ onClose, id, ...other }: Props) {
     const onSubmit = async (data: FormValuesProps) => {
         try {
             await new Promise((resolve) => setTimeout(resolve, 500));
+            await postFeedback({ ...data, gymId: gym.id })
+            mutate();
+            mutateGym();
             reset();
             onClose();
         } catch (error) {
@@ -74,14 +78,14 @@ export default function GymReviewForm({ onClose, id, ...other }: Props) {
     return (
         <RootStyle {...other} id={id}>
             <Typography variant="subtitle1" gutterBottom>
-                Add Review
+                コメント
             </Typography>
 
             <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
                 <Stack spacing={3}>
                     <div>
                         <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1.5}>
-                            <Typography variant="body2">Your review about this product:</Typography>
+                            <Typography variant="body2">評点</Typography>
 
                             <Controller
                                 name="rating"
@@ -92,18 +96,14 @@ export default function GymReviewForm({ onClose, id, ...other }: Props) {
                         {!!errors.rating && <FormHelperText error> {errors.rating?.message}</FormHelperText>}
                     </div>
 
-                    <RHFTextField name="review" label="Review *" multiline rows={3} />
-
-                    <RHFTextField name="name" label="Name *" />
-
-                    <RHFTextField name="email" label="Email *" />
+                    <RHFTextField name="content" label="コメント..." multiline rows={3} />
 
                     <Stack direction="row" justifyContent="flex-end" spacing={1.5}>
                         <Button color="inherit" variant="outlined" onClick={onCancel}>
-                            Cancel
+                            キャンセル
                         </Button>
                         <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                            Post review
+                            コメント
                         </LoadingButton>
                     </Stack>
                 </Stack>

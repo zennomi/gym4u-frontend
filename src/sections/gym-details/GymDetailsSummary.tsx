@@ -76,9 +76,9 @@ export default function GymDetailsSummary({
             </Typography>
 
             <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>
-                <Rating value={randomNumberRange(0, 5)} precision={0.1} readOnly />
+                <Rating value={gym.averageRating} precision={0.1} readOnly />
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    ({fShortenNumber(10000)} reviews)
+                    ({fShortenNumber(gym.feedbackCount)} reviews)
                 </Typography>
             </Stack>
 

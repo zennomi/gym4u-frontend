@@ -34,8 +34,6 @@ type Props = {
 export default function GymReviewOverview({ gym, feedbacks, onOpen }: Props) {
     // const { totalRating, totalReview, ratings } = gym;
     const totalRating = 4.7
-    const totalReview = 5200
-    const ratings = [{ name: "5 スター", starCount: 5, reviewCount: 50000 }, { name: "4 スター", starCount: 4, reviewCount: 35000 }]
     const total = feedbacks.length;
 
     const groups = groupBy(feedbacks, (f) => f.rating)
@@ -47,9 +45,9 @@ export default function GymReviewOverview({ gym, feedbacks, onOpen }: Props) {
                     平均評価
                 </Typography>
                 <Typography variant="h2" gutterBottom sx={{ color: 'error.main' }}>
-                    {gym.averageRating}/5
+                    {gym.averageRating.toFixed(2)}/5
                 </Typography>
-                <RatingStyle readOnly value={totalRating} precision={0.01} />
+                <RatingStyle readOnly value={totalRating} precision={0.1} />
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     ({fShortenNumber(gym.feedbackCount)}
                     &nbsp;レビュー)
@@ -72,16 +70,14 @@ export default function GymReviewOverview({ gym, feedbacks, onOpen }: Props) {
             </GridStyle>
 
             <GridStyle item xs={12} md={4}>
-                <Link href="#move_add_review" underline="none">
-                    <Button
-                        size="large"
-                        onClick={onOpen}
-                        variant="outlined"
-                        startIcon={<Iconify icon={'eva:edit-2-fill'} />}
-                    >
-                        コメント
-                    </Button>
-                </Link>
+                <Button
+                    size="large"
+                    onClick={onOpen}
+                    variant="outlined"
+                    startIcon={<Iconify icon={'eva:edit-2-fill'} />}
+                >
+                    コメント
+                </Button>
             </GridStyle>
         </Grid>
     );

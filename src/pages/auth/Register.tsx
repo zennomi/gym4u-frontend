@@ -14,6 +14,7 @@ import Logo from '../../components/Logo';
 import Image from '../../components/Image';
 // sections
 import { RegisterForm } from '../../sections/auth/register';
+import LoginIllustration from '../../assets/illustration_login';
 
 // ----------------------------------------------------------------------
 
@@ -74,9 +75,9 @@ export default function Register() {
           <Logo />
           {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Already have an account? {''}
+              または {''}
               <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.login}>
-                Login
+                ログイン
               </Link>
             </Typography>
           )}
@@ -85,14 +86,9 @@ export default function Register() {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Manage the job more effectively with Minimal
+            いっしょに練習する
             </Typography>
-            <Image
-              visibleByDefault
-              disabledEffect
-              alt="register"
-              src="/assets/illustrations/illustration_register.png"
-            />
+            <LoginIllustration />
           </SectionStyle>
         )}
 
@@ -101,11 +97,11 @@ export default function Register() {
             <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="h4" gutterBottom>
-                  Get started absolutely free.
+                  Gym4u
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>
+                {/* <Typography sx={{ color: 'text.secondary' }}>
                   Free forever. No credit card needed.
-                </Typography>
+                </Typography> */}
               </Box>
               <Tooltip title={capitalCase(method)}>
                 <>
@@ -120,7 +116,7 @@ export default function Register() {
 
             <RegisterForm />
 
-            <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
+            {/* <Typography variant="body2" align="center" sx={{ color: 'text.secondary', mt: 3 }}>
               By registering, I agree to Minimal&nbsp;
               <Link underline="always" color="text.primary" href="#">
                 Terms of Service
@@ -130,13 +126,13 @@ export default function Register() {
                 Privacy Policy
               </Link>
               .
-            </Typography>
+            </Typography> */}
 
             {!smUp && (
               <Typography variant="body2" sx={{ mt: 3, textAlign: 'center' }}>
-                Already have an account?{' '}
+                または{' '}
                 <Link variant="subtitle2" to={PATH_AUTH.login} component={RouterLink}>
-                  Login
+                  ログイン
                 </Link>
               </Typography>
             )}

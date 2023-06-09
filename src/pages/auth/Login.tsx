@@ -14,6 +14,7 @@ import Logo from '../../components/Logo';
 import Image from '../../components/Image';
 // sections
 import { LoginForm } from '../../sections/auth/login';
+import LoginIllustration from '../../assets/illustration_login';
 
 // ----------------------------------------------------------------------
 
@@ -74,9 +75,9 @@ export default function Login() {
           <Logo />
           {smUp && (
             <Typography variant="body2" sx={{ mt: { md: -2 } }}>
-              Don’t have an account? {''}
+              または {''}
               <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                Get started
+                登録
               </Link>
             </Typography>
           )}
@@ -85,14 +86,9 @@ export default function Login() {
         {mdUp && (
           <SectionStyle>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Hi, Welcome Back
+              いっしょに練習する
             </Typography>
-            <Image
-              visibleByDefault
-              disabledEffect
-              src="/assets/illustrations/illustration_login.png"
-              alt="login"
-            />
+            <LoginIllustration />
           </SectionStyle>
         )}
 
@@ -101,9 +97,9 @@ export default function Login() {
             <Stack direction="row" alignItems="center" sx={{ mb: 5 }}>
               <Box sx={{ flexGrow: 1 }}>
                 <Typography variant="h4" gutterBottom>
-                  Sign in to Minimal
+                  Gym4u
                 </Typography>
-                <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
+                {/* <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography> */}
               </Box>
 
               <Tooltip title={capitalCase(method)} placement="right">
@@ -125,9 +121,9 @@ export default function Login() {
 
             {!smUp && (
               <Typography variant="body2" align="center" sx={{ mt: 3 }}>
-                Don’t have an account?{' '}
+                または {' '}
                 <Link variant="subtitle2" component={RouterLink} to={PATH_AUTH.register}>
-                  Get started
+                  登録
                 </Link>
               </Typography>
             )}
