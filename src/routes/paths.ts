@@ -34,7 +34,8 @@ export const PATH_PAGE = {
   components: '/components',
   gymList: '/gym-list',
   booking: '/booking',
-  gymDetails: (id: string) => `/gym/${id}`
+  gymBooking: (id: string) => `/booking/${id}`,
+  gymDetails: (id: string) => `/gym/${id}`,
 };
 
 export const PATH_DASHBOARD = {

@@ -1,12 +1,13 @@
-import { Typography, Stack, Rating, Divider, Button, styled, Box, useTheme } from "@mui/material";
+import { Typography, Stack, Rating, Divider, Button, styled, Box, useTheme, Link } from "@mui/material";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import { Link as RouterLink } from "react-router-dom";
 
-import { randomNumberRange } from "../../_mock/funcs";
 import Iconify from "../../components/Iconify";
 import Label from "../../components/Label";
 import { Gym } from "../../types";
 import { fShortenNumber, fCurrency } from "../../utils/formatNumber";
 import GymVideo from "./GymVideo";
+import { PATH_PAGE } from "../../routes/paths";
 
 const RootStyle = styled('div')(({ theme }) => ({
     padding: theme.spacing(3),
@@ -104,16 +105,21 @@ export default function GymDetailsSummary({
                 >
                     紹介ビデオ
                 </Button>
-
-                <Button
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                    startIcon={<Iconify icon={'map:gym'} />}
+                <Link
+                    component={RouterLink}
+                    to={PATH_PAGE.gymBooking(gym.id)}
+                    sx={{ display: 'block', width: "100%" }}
                 >
-                    ブッキング
-                </Button>
+                    <Button
+                        fullWidth
+                        size="large"
+                        type="submit"
+                        variant="contained"
+                        startIcon={<Iconify icon={'map:gym'} />}
+                    >
+                        ブッキング
+                    </Button>
+                </Link>
             </Stack>
             <FullScreen handle={handle}>
                 <Box>

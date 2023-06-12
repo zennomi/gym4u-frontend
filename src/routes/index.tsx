@@ -89,6 +89,7 @@ export default function Router() {
         { element: <HomePage />, index: true },
         { path: PATH_PAGE.gymList, element: <GymList />, },
         { path: PATH_PAGE.gymDetails(":id"), element: <GymDetails />, },
+        { path: PATH_PAGE.gymBooking(":id"), element: <GymBooking />, },
       ]
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -113,4 +114,5 @@ const NotFound = Loadable(lazy(() => import('../pages/Page404')));
 const HomePage = Loadable(lazy(() => import('../pages/HomePage')));
 const GymList = Loadable(lazy(() => import('../pages/GymList')));
 const GymDetails = Loadable(lazy(() => import('../pages/GymDetails')));
+const GymBooking = Loadable(lazy(() => import('../pages/GymBooking')));
 
