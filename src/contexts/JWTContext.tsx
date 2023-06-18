@@ -148,7 +148,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       phone,
       sex,
     });
-    const { accessToken, user } = response.data;
+    const { tokens: { access: { token: accessToken } }, user } = response.data;
 
     localStorage.setItem('accessToken', accessToken);
 
