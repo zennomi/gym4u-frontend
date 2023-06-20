@@ -47,7 +47,7 @@ export default function GymReviewOverview({ gym, feedbacks, onOpen }: Props) {
                 <Typography variant="h2" gutterBottom sx={{ color: 'error.main' }}>
                     {gym.averageRating.toFixed(2)}/5
                 </Typography>
-                <RatingStyle readOnly value={totalRating} precision={0.1} />
+                <RatingStyle readOnly value={gym.averageRating} precision={0.1} />
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     ({fShortenNumber(gym.feedbackCount)}
                     &nbsp;レビュー)
