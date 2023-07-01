@@ -90,7 +90,7 @@ function AuthProvider({ children }: AuthProviderProps) {
           setSession(accessToken);
           const { sub } = jwtDecode<{ sub: string }>(accessToken);
           const response = await axios.get(`/users/${sub}`);
-          const { user } = response.data;
+          const user = response.data;
 
           dispatch({
             type: Types.Initial,

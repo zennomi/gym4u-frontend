@@ -5,6 +5,8 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar } from '@mui/material
 // components
 import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
+import useAuth from '../../../hooks/useAuth';
+import { getAvatarFromString } from '../../../utils/random';
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +29,8 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState<HTMLElement | null>(null);
+
+  const { user, logout } = useAuth()
 
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => {
     setOpen(event.currentTarget);
@@ -56,7 +60,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src="https://minimal-assets-api-dev.vercel.app/assets/images/avatars/avatar_5.jpg"
+          src={getAvatarFromString(user?.id || "bruh")}
           alt="Rayan Moran"
         />
       </IconButtonAnimate>
@@ -77,10 +81,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            Rayan Moran
+            {user?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            rayan.moran@gmail.com
+            {user?.email}
           </Typography>
         </Box>
 
@@ -96,7 +100,7 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem sx={{ m: 1 }}>Logout</MenuItem>
+        <MenuItem sx={{ m: 1 }} onClick={logout}>ログアウト</MenuItem>
       </MenuPopover>
     </>
   );

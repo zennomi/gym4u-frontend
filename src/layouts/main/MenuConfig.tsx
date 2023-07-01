@@ -22,16 +22,6 @@ const menuConfig = [
     path: PATH_PAGE.gymList,
     icon: <Iconify icon={'eva:file-fill'} {...ICON_SIZE} />,
   },
-  {
-    title: 'ジム詳細情報',
-    path: PATH_PAGE.gymDetails("/"),
-    icon: <Iconify icon={'eva:file-fill'} {...ICON_SIZE} />,
-  },
-  {
-    title: 'ブッキング',
-    path: PATH_PAGE.booking,
-    icon: <Iconify icon={'eva:file-fill'} {...ICON_SIZE} />,
-  },
 ];
 
 export default menuConfig;

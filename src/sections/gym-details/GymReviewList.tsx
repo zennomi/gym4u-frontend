@@ -4,6 +4,7 @@ import { useState } from "react";
 import Iconify from "../../components/Iconify";
 import { fShortenNumber } from "../../utils/formatNumber";
 import { fDate } from "../../utils/formatTime";
+import { getAvatarFromString } from "../../utils/random";
 
 type Props = {
     gym: Gym;
@@ -61,7 +62,7 @@ function ReviewItem({ feedback }: { feedback: Feedback }) {
                     }}
                 >
                     <Avatar
-                        src={user.avatar}
+                        src={getAvatarFromString(user.id)}
                         sx={{
                             mr: { xs: 2, sm: 0 },
                             mb: { sm: 2 },

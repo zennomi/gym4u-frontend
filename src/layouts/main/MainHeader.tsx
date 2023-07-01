@@ -17,6 +17,7 @@ import MenuMobile from './MenuMobile';
 import navConfig from './MenuConfig';
 import { PATH_AUTH } from '../../routes/paths';
 import useAuth from '../../hooks/useAuth';
+import AccountPopover from '../dashboard/header/AccountPopover';
 
 // ----------------------------------------------------------------------
 
@@ -53,7 +54,7 @@ export default function MainHeader() {
 
   const { pathname } = useLocation();
 
-  const { isAuthenticated, logout } = useAuth()
+  const { isAuthenticated } = useAuth()
 
   const isDesktop = useResponsive('up', 'md');
 
@@ -96,12 +97,8 @@ export default function MainHeader() {
 
           {
             isAuthenticated ?
-              <Button
-                variant='outlined'
-                onClick={logout}
-              >
-                ログアウト
-              </Button> :
+              <AccountPopover />
+              :
               <Link
                 component={RouterLink}
                 to={PATH_AUTH.register}
