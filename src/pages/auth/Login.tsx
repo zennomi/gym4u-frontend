@@ -114,7 +114,7 @@ export default function Login() {
             </Stack>
 
             <Alert severity="info" sx={{ mb: 3 }}>
-              Use email : <strong>fake@example.com</strong> / password :<strong> password1</strong>
+              Test Only: <strong>bruh@gym4u.vn</strong> / password :<strong> 12345678</strong>
             </Alert>
 
             <LoginForm />

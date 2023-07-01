@@ -38,8 +38,8 @@ export default function LoginForm() {
   });
 
   const defaultValues = {
-    email: 'fake@example.com',
-    password: 'password1',
+    email: 'bruh@gym4u.vn',
+    password: '12345678',
     remember: true,
   };
 
@@ -61,10 +61,10 @@ export default function LoginForm() {
     } catch (error) {
       console.error(error);
 
-      reset();
+      // reset();
 
       if (isMountedRef.current) {
-        setError('afterSubmit', { ...error, message: error.message });
+        setError('afterSubmit', { ...error, message: error?.response?.data?.message || error.message });
       }
     }
   };
@@ -72,7 +72,7 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+        {!!errors.afterSubmit && <Alert severity="error" icon={<Iconify icon="" />}>メールアドレスまたはパスワードが間違っています</Alert>}
 
         <RHFTextField name="email" label="メール" />
 
