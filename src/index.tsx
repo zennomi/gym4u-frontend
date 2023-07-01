@@ -16,6 +16,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
+
+// @mui
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+
 // contexts
 import { SettingsProvider } from './contexts/SettingsContext';
 import { CollapseDrawerProvider } from './contexts/CollapseDrawerContext';
@@ -30,13 +35,15 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <AuthProvider>
     <HelmetProvider>
-      <SettingsProvider>
-        <CollapseDrawerProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </CollapseDrawerProvider>
-      </SettingsProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <SettingsProvider>
+          <CollapseDrawerProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </CollapseDrawerProvider>
+        </SettingsProvider>
+      </LocalizationProvider>
     </HelmetProvider>
   </AuthProvider>
 );
