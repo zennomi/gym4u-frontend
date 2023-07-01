@@ -32,11 +32,14 @@ type Props = {
 };
 
 export default function GymReviewOverview({ gym, feedbacks, onOpen }: Props) {
-    // const { totalRating, totalReview, ratings } = gym;
-    const totalRating = 4.7
     const total = feedbacks.length;
 
     const groups = groupBy(feedbacks, (f) => f.rating)
+    Array.from(Array(6).keys()).forEach(n => {
+        if (!groups[n.toString()] && n !== 0) {
+            groups[n.toString()] = []
+        }
+    })
 
     return (
         <Grid container>
@@ -56,11 +59,6 @@ export default function GymReviewOverview({ gym, feedbacks, onOpen }: Props) {
 
             <GridStyle item xs={12} md={4}>
                 <Stack spacing={1.5} sx={{ width: 1 }}>
-                    {/* {ratings
-                        .slice(0)
-                        .reverse()
-                        .map((rating) => (
-                        ))} */}
                     {
                         Object.entries(groups).map(([rating, feedbacks]) => (
                             <ProgressItem key={rating} rating={rating} count={feedbacks.length} total={total} />
