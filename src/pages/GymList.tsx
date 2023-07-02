@@ -114,7 +114,7 @@ export default function GymList() {
                                             data && data.results.length > 0 ?
                                                 data.results.map(gym =>
                                                 (
-                                                    <Card>
+                                                    <Card key={gym._id}>
                                                         <CardContent>
                                                             <Grid container>
                                                                 <Grid xs={4}>

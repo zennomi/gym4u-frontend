@@ -6,4 +6,5 @@ export type User = {
     phone: string
     role: string
     sex: string
+    createdAt?: string
 }

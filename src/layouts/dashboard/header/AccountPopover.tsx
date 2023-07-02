@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar } from '@mui/material';
@@ -7,21 +8,14 @@ import MenuPopover from '../../../components/MenuPopover';
 import { IconButtonAnimate } from '../../../components/animate';
 import useAuth from '../../../hooks/useAuth';
 import { getAvatarFromString } from '../../../utils/random';
+import { PATH_PAGE } from '../../../routes/paths';
 
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
-    linkTo: '/',
-  },
-  {
-    label: 'Profile',
-    linkTo: '/',
-  },
-  {
-    label: 'Settings',
-    linkTo: '/',
+    label: 'プロフィール',
+    linkTo: PATH_PAGE.profile("me"),
   },
 ];
 
@@ -92,7 +86,12 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
+            <MenuItem
+              key={option.label}
+              onClick={handleClose}
+              to={option.linkTo}
+              component={RouterLink}
+            >
               {option.label}
             </MenuItem>
           ))}

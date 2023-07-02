@@ -1,4 +1,5 @@
 import { format, getTime, formatDistanceToNow } from 'date-fns';
+import ja from 'date-fns/locale/ja';
 
 // ----------------------------------------------------------------------
 
@@ -7,7 +8,7 @@ export function fDate(date: Date | string | number) {
 }
 
 export function fDateTime(date: Date | string | number) {
-  return format(new Date(date), 'dd MMM yyyy p');
+  return format(new Date(date), 'PPP pp', { locale: ja });
 }
 
 export function fTimestamp(date: Date | string | number) {

@@ -1,12 +1,14 @@
 import { Controller, useForm } from "react-hook-form"
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from "react-router";
 import { FormProvider, RHFTextField } from "../../components/hook-form"
-import { Gym } from "../../types"
+import { AuthUser, Gym } from "../../types"
 import { Stack } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
 import { DateTimePicker } from "@mui/x-date-pickers"
 import { postBooking } from "../../api/booking";
+import { PATH_PAGE } from "../../routes/paths";
 
 type FormValuesProps = {
     name: string
@@ -17,14 +19,18 @@ type FormValuesProps = {
     to: Date
 }
 
-export default function BookingForm({ gym }: { gym: Gym }) {
+export default function BookingForm({ gym, user }: { gym: Gym, user: AuthUser }) {
+    const navigate = useNavigate()
+
+    const minDate = new Date(Date.now() + 24 * 3600 * 1000)
+
     const defaultValues = {
-        email: '',
-        name: '',
-        phone: '',
+        email: user ? user.email : '',
+        name: user ? user.name : '',
+        phone: user ? user.phone : '',
         gym: gym.id,
-        from: new Date(),
-        to: new Date(),
+        from: minDate,
+        to: minDate,
     };
 
     const FormSchema = Yup.object().shape({
@@ -58,6 +64,7 @@ export default function BookingForm({ gym }: { gym: Gym }) {
         try {
             console.log(data)
             await postBooking(data)
+            navigate(PATH_PAGE.profile("me"))
         } catch (error) {
             console.error(error);
             reset();
@@ -67,11 +74,11 @@ export default function BookingForm({ gym }: { gym: Gym }) {
     return (
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={3}>
-                <RHFTextField name="name" label="名前" />
+                <RHFTextField name="name" label="名前" disabled={!!user} />
 
-                <RHFTextField name="email" label="メール" />
+                <RHFTextField name="email" label="メール" disabled={!!user} />
 
-                <RHFTextField name="phone" label="電話番号" />
+                <RHFTextField name="phone" label="電話番号" disabled={!!user} />
 
                 <Controller
                     name="from"
@@ -80,6 +87,7 @@ export default function BookingForm({ gym }: { gym: Gym }) {
                         <DateTimePicker
                             {...field}
                             label="から"
+                            minDate={minDate}
                         />
                     )}
                 />

@@ -5,12 +5,14 @@ import LoadingScreen from "../components/LoadingScreen";
 import GymPreview from "../sections/booking/GymPreview";
 import Page from "../components/Page";
 import BookingForm from "../sections/booking/BookingForm";
+import useAuth from "../hooks/useAuth";
 
 export default function GymBooking() {
     const { id } = useParams()
     const { data, isLoading, error } = useGym(id || null)
+    const { isInitialized, user } = useAuth()
 
-    if (isLoading) return <LoadingScreen />
+    if (isLoading || !isInitialized) return <LoadingScreen />
 
     if (error) return <>Error</>
 
@@ -27,7 +29,7 @@ export default function GymBooking() {
                         <Box px={2}>
                             {
                                 data &&
-                                <BookingForm gym={data} />
+                                <BookingForm gym={data} user={user} />
                             }
                         </Box>
                     </Grid>
