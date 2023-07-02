@@ -53,9 +53,9 @@ export default function UserProfile() {
     return (
         <Page title="User: Profile">
             <Container sx={(theme) => ({
-                paddingTop: theme.spacing(10),
+                paddingY: theme.spacing(10),
                 [theme.breakpoints.up('md')]: {
-                    paddingTop: theme.spacing(15),
+                    paddingY: theme.spacing(15),
                 },
             })}>
                 <Card

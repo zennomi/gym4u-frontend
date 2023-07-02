@@ -1,5 +1,5 @@
 // @mui
-import { Grid, Stack } from '@mui/material';
+import { Grid, Pagination, Stack } from '@mui/material';
 //
 import ProfileAbout from './ProfileAbout';
 import ProfilePostCard from './ProfilePostCard';
@@ -17,6 +17,8 @@ type Props = {
 
 export default function Profile({ user }: Props) {
   const [bookings, setBookings] = useState<Booking[]>([])
+  const [page, setPage] = useState(1)
+  const limit = 5
 
   useEffect(() => {
     const getBookings = async () => {
@@ -31,9 +33,7 @@ export default function Profile({ user }: Props) {
     <Grid container spacing={3}>
       <Grid item xs={12} md={4}>
         <Stack spacing={3}>
-          <ProfileFollowInfo />
           <ProfileAbout user={user} />
-          <ProfileSocialInfo user={user} />
         </Stack>
       </Grid>
 
@@ -42,6 +42,7 @@ export default function Profile({ user }: Props) {
           {bookings.map((booking) => (
             <ProfilePostCard key={booking.id} user={user} booking={booking} />
           ))}
+          <Pagination count={Math.floor(bookings.length / limit) + 1} onChange={(event, value) => setPage(value)} color="primary" />
         </Stack>
       </Grid>
     </Grid>

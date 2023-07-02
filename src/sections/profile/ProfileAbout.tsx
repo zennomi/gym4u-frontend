@@ -5,6 +5,7 @@ import { Link, Card, Typography, CardHeader, Stack } from '@mui/material';
 import { User } from '../../types';
 // components
 import Iconify from '../../components/Iconify';
+import { capitalCase } from 'change-case';
 
 // ----------------------------------------------------------------------
 
@@ -23,22 +24,24 @@ type Props = {
 };
 
 export default function ProfileAbout({ user }: Props) {
-  const { sex, email, role } = user;
+  const { sex, email, role, phone } = user;
 
   return (
     <Card>
-      <CardHeader title="About" />
+      <CardHeader title="プロフィール" />
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Typography variant="body2">I love sex</Typography>
+        <Stack direction="row">
+          <IconStyle icon={'eva:flag-fill'} />
+          <Typography variant="body2">
+            {capitalCase(role)}
+          </Typography>
+        </Stack>
 
         <Stack direction="row">
-          <IconStyle icon={'eva:pin-fill'} />
+          <IconStyle icon={'eva:people-fill'} />
           <Typography variant="body2">
-            Live at &nbsp;
-            <Link component="span" variant="subtitle2" color="text.primary">
-              Ha Noi
-            </Link>
+            {sex}
           </Typography>
         </Stack>
 
@@ -48,14 +51,10 @@ export default function ProfileAbout({ user }: Props) {
         </Stack>
 
         <Stack direction="row">
-          <IconStyle icon={'ic:round-business-center'} />
-          <Typography variant="body2">
-            {role} at &nbsp;
-            <Link component="span" variant="subtitle2" color="text.primary">
-              {sex}
-            </Link>
-          </Typography>
+          <IconStyle icon={'eva:phone-fill'} />
+          <Typography variant="body2">{phone}</Typography>
         </Stack>
+
       </Stack>
     </Card>
   );
