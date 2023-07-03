@@ -17,6 +17,10 @@ const MENU_OPTIONS = [
     label: 'プロフィール',
     linkTo: PATH_PAGE.profile("me"),
   },
+  {
+    label: 'ユーザー編集フォーム',
+    linkTo: PATH_PAGE.profileEdit("me"),
+  },
 ];
 
 // ----------------------------------------------------------------------
@@ -54,7 +58,7 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={getAvatarFromString(user?.id || "bruh")}
+          src={user?.avatar || getAvatarFromString(user?.id || "bruh")}
           alt="Rayan Moran"
         />
       </IconButtonAnimate>

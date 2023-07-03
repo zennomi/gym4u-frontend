@@ -91,6 +91,7 @@ export default function Router() {
         { path: PATH_PAGE.gymDetails(":id"), element: <GymDetails />, },
         { path: PATH_PAGE.gymBooking(":id"), element: <GymBooking />, },
         { path: PATH_PAGE.profile(":id"), element: <AuthGuard><Profile /></AuthGuard>, },
+        { path: PATH_PAGE.profileEdit(":id"), element: <AuthGuard><EditProfile /></AuthGuard>, },
       ]
     },
     { path: '*', element: <Navigate to="/404" replace /> },
@@ -117,4 +118,5 @@ const GymList = Loadable(lazy(() => import('../pages/GymList')));
 const GymDetails = Loadable(lazy(() => import('../pages/GymDetails')));
 const GymBooking = Loadable(lazy(() => import('../pages/GymBooking')));
 const Profile = Loadable(lazy(() => import('../pages/Profile')));
+const EditProfile = Loadable(lazy(() => import('../pages/EditProfile')));
 

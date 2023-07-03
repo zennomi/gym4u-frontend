@@ -21,3 +21,5 @@ export const defaultGetGymListOptions: GetGymListRequestOptions = {
     name: "",
     facilityTags: [],
 }
+
+export const sexOptions = ['男性', '女性', '他']

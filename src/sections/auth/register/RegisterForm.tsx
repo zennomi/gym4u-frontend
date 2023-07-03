@@ -12,6 +12,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFSelect, RHFTextField } from '../../../components/hook-form';
+import { sexOptions } from '../../../constants';
 
 // ----------------------------------------------------------------------
 
@@ -80,7 +81,7 @@ export default function RegisterForm() {
           <RHFTextField name="name" label="名前" />
           <RHFSelect name="sex" label="性別">
             {
-              ['男性', '女性', '他'].map(s => (
+              sexOptions.map(s => (
                 <option key={s}>{s}</option>
               ))
             }
