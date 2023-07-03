@@ -62,7 +62,7 @@ function ReviewItem({ feedback }: { feedback: Feedback }) {
                     }}
                 >
                     <Avatar
-                        src={getAvatarFromString(user.id)}
+                        src={user?.avatar || getAvatarFromString(user.id)}
                         sx={{
                             mr: { xs: 2, sm: 0 },
                             mb: { sm: 2 },
@@ -74,9 +74,9 @@ function ReviewItem({ feedback }: { feedback: Feedback }) {
                         <Typography variant="subtitle2" noWrap>
                             {user.name}
                         </Typography>
-                        {/* <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
-                            {fDate(postedAt)}
-                        </Typography> */}
+                        <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
+                            {fDate(feedback.createdAt)}
+                        </Typography>
                     </div>
                 </Box>
 

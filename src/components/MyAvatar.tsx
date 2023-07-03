@@ -9,7 +9,7 @@ import Avatar, { Props as AvatarProps } from './Avatar';
 
 export default function MyAvatar({ ...other }: AvatarProps) {
   const { user } = useAuth();
-  const avatarUrl = getAvatarFromString(user?.id || "bruh")
+  const avatarUrl = user?.avatar || getAvatarFromString(user?.id || "bruh")
   return (
     <Avatar
       src={avatarUrl}

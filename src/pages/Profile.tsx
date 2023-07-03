@@ -51,7 +51,7 @@ export default function UserProfile() {
     ];
 
     return (
-        <Page title="User: Profile">
+        <Page title="プロフィール">
             <Container sx={(theme) => ({
                 paddingY: theme.spacing(10),
                 [theme.breakpoints.up('md')]: {

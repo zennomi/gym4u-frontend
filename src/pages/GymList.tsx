@@ -60,7 +60,7 @@ export default function GymList() {
     }, [values.page])
 
     return (
-        <Page title="Gym List">
+        <Page title="ジムリスト情報">
             <Container sx={(theme) => ({
                 paddingTop: theme.spacing(10),
                 [theme.breakpoints.up('md')]: {

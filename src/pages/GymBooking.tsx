@@ -17,7 +17,7 @@ export default function GymBooking() {
     if (error) return <>Error</>
 
     return (
-        <Page title="Gym Booking">
+        <Page title="ブッキング">
             <Container sx={(theme) => ({
                 paddingTop: theme.spacing(10),
                 [theme.breakpoints.up('md')]: {

@@ -3,7 +3,7 @@ import Hero from "../sections/homepage/Hero";
 
 export default function HomePage() {
     return (
-        <Page title="Gym4u - HomePage">
+        <Page title="Gym4u - ホームページ">
             <Hero />
         </Page>
     )

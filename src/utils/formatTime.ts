@@ -4,7 +4,7 @@ import ja from 'date-fns/locale/ja';
 // ----------------------------------------------------------------------
 
 export function fDate(date: Date | string | number) {
-  return format(new Date(date), 'dd MMMM yyyy');
+  return format(new Date(date), 'PPP', { locale: ja });
 }
 
 export function fDateTime(date: Date | string | number) {

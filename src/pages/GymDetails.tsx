@@ -11,7 +11,7 @@ export default function GymDetails() {
     const { data, isLoading, error } = useGym(id || null)
 
     return (
-        <Page title="Gym Details">
+        <Page title="ジム詳細情報">
             <Container sx={(theme) => ({
                 paddingTop: theme.spacing(10),
                 [theme.breakpoints.up('md')]: {
