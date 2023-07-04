@@ -89,7 +89,7 @@ export default function ProfileForm({ isEdit, currentUser }: Props) {
     const onSubmit = async (data: FormValuesProps) => {
         try {
             if (currentUser?.id) await updateProfile(currentUser.id, data as User)
-            reset();
+            // reset();
             enqueueSnackbar(!isEdit ? 'Create success!' : '成功！', { variant: "success" });
             navigate(0)
         } catch (error) {

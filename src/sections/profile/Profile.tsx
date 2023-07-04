@@ -42,7 +42,10 @@ export default function Profile({ user }: Props) {
           {bookings.map((booking) => (
             <ProfilePostCard key={booking.id} user={user} booking={booking} />
           ))}
-          <Pagination count={Math.floor(bookings.length / limit) + 1} onChange={(event, value) => setPage(value)} color="primary" />
+          {
+            bookings.length > 0 &&
+            <Pagination count={Math.floor(bookings.length / limit) + 1} onChange={(event, value) => setPage(value)} color="primary" />
+          }
         </Stack>
       </Grid>
     </Grid>
