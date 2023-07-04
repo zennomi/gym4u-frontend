@@ -3,26 +3,22 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { useSnackbar } from 'notistack';
 import { useNavigate } from 'react-router-dom';
 // form
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel } from '@mui/material';
+import { Box, Card, Grid, Stack, Typography } from '@mui/material';
 // utils
 import { fData } from '../../utils/formatNumber';
 // routes
-import { PATH_DASHBOARD, PATH_PAGE } from '../../routes/paths';
 // @types
 import { User } from '../../types';
 // _mock
-import { countries } from '../../_mock';
 // components
-import Label from '../../components/Label';
 import { CustomFile } from '../../components/upload';
 import {
     FormProvider,
     RHFSelect,
-    RHFSwitch,
     RHFTextField,
     RHFUploadAvatar,
 } from '../../components/hook-form';
@@ -94,11 +90,11 @@ export default function ProfileForm({ isEdit, currentUser }: Props) {
         try {
             if (currentUser?.id) await updateProfile(currentUser.id, data as User)
             reset();
-            enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
+            enqueueSnackbar(!isEdit ? 'Create success!' : '成功！', { variant: "success" });
             navigate(0)
         } catch (error) {
             console.error(error);
-            enqueueSnackbar("Failed")
+            enqueueSnackbar("Failed", { variant: "error", })
         }
     };
 
@@ -139,7 +135,7 @@ export default function ProfileForm({ isEdit, currentUser }: Props) {
                                             color: 'text.secondary',
                                         }}
                                     >
-                                        Allowed *.jpeg, *.jpg, *.png, *.gif
+                                        *.jpeg, *.jpg, *.png, *.gif
                                         <br /> max size of {fData(3145728)}
                                     </Typography>
                                 }
@@ -173,7 +169,7 @@ export default function ProfileForm({ isEdit, currentUser }: Props) {
 
                         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
                             <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-                                {!isEdit ? 'Create User' : 'Save Changes'}
+                                {!isEdit ? 'Create User' : '保存'}
                             </LoadingButton>
                         </Stack>
                     </Card>
